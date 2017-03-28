@@ -28,6 +28,10 @@ export default class Comments extends React.Component {
         });
     };
     handleComments = () => {
+        if (!document.getElementById("comment-create").value) {
+            alert("You haven't written anything");
+            return;
+        }
         let comment = document.getElementById("comment-create").value;
         fetch("/create-comment", {
             method: "post",
