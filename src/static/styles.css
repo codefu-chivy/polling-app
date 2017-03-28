@@ -1,0 +1,243 @@
+body {
+    text-align: center;
+    margin: 0px;
+}
+#logo {
+    width: 150px;
+    height: 150px;
+}
+#logo, #pollers {
+    float: left;
+}
+#pollers {
+    font-size: 65px;
+    letter-spacing: 1px;
+    margin-left: 20px;
+    font-family: "racing sans one";
+}
+#main {
+    width: 100%;
+    height: 300px;
+    background-color: steelblue;
+}
+li {
+    float: right;
+    margin: 20px;
+    list-style-type: none;
+    font-size: 20px;
+    margin-top: 85px;
+    position: relative;
+    right: 150px;
+}
+#greeting {
+    font-family: "racing sans one";
+    font-size: 30px;
+    margin: 0px auto;
+    width: 100%;
+    position: absolute;
+    bottom: 730px;
+}
+.poll {
+    text-align: center;
+    margin: 20px auto;
+}
+#vote-page {
+    font-size: 25px;
+    width: 38%;
+    min-height: 450px;
+    max-height: 1000px;
+    margin: 0px auto;
+    background-color: silver;
+    padding: 35px;
+    text-align: left;
+    position: relative;
+    bottom: 180px;
+}
+.vote-options {
+    margin: 0px auto;
+}
+.question, span, #no-vote {
+    font-family: "Roboto";
+}
+#no-vote {
+    margin: 0px auto;
+}
+#slogan {
+    position: relative;
+    bottom: 250px;
+    font-size: 60px;
+    letter-spacing: 5px;
+    word-spacing: 5px;
+    font-family: "racing sans one";
+    color: white;
+}
+#create {
+    position: relative;
+    bottom: 250px;
+}
+#login, #register {
+    font-size: 25px;
+    background-color: silver;
+    font-family: "Roboto";
+    position: relative;
+    bottom: 200px;
+    margin-bottom: 25px;
+    color: black;
+}
+.pollbox:hover {
+    color: royalblue;
+    background-color: silver;
+}
+.pollbox {
+    font-size: 20px;
+    cursor: pointer;
+    font-family: "Roboto";
+    position: relative;
+    bottom: 200px;
+    margin-bottom: 25px;
+    color: black;
+
+}
+.poll-title {
+    width: 65%;
+    margin: 0px auto;
+    background-color: silver;
+}
+.list-link {
+    font-size: 20px;
+    font-family: "Roboto";
+    position: relative;
+    bottom: 200px;
+    margin-bottom: 25px;
+    color: black;
+}
+canvas {
+    width: 300px;
+    height: 300px;
+    float: left;
+}
+button {
+    height: 50px;
+    width: 300px;
+    border: 1px solid darkgreen;
+    font-size: 20px;
+    border-radius: 3px;
+    background-color: forestgreen;
+    color: white;
+}
+button:hover {
+    cursor: pointer;
+    background-color: darkgreen;
+}
+.like {
+    background-color: royalblue;
+}
+.dislike {
+    background-color: orangered;
+}
+.like:hover {
+    background-color: midnightblue;
+}
+.dislike:hover {
+    background-color: red;
+}
+label {
+    font-size: 20px;
+}
+#create-page {
+    font-family: "roboto";
+    position: relative;
+    bottom: 210px;
+}
+#question-box, #choices-box {
+    width: 85%;
+    margin: 0px auto;
+}
+input:not([type=radio]) {
+    border-radius: 5px;
+    border: 1px solid silver;
+    box-shadow: inset 0px 0px 2px;;
+    margin: 10px;
+    font-size: 20px;
+    width: 70%;
+    height: 35px;
+}
+#register, #login {
+    width: 60%;
+    margin: 0px auto;
+}
+#comment-container {
+    margin-top: -170px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+#comment-create {
+    resize: none;
+    width: 60%;
+    height: 100px;
+    border-radius: 5px;
+}
+#comment-button {
+    display: block;
+    margin: 0px auto;
+}
+.current-comment-box {
+    margin: 25px;
+}
+.like, .dislike {
+    width: 15%;
+}
+
+/*media queries for mobile*/
+@media screen and (max-width: 800px) {
+    #login, #register {
+        width: 90%;
+        bottom: 160px;
+    }
+    .pollbox {
+        bottom: 160px;
+    }
+    #vote-page {
+        width: 80%;
+        margin-top: 50px;
+    }
+    button {
+        width: 95%
+    }
+    li {
+        right: 0px;
+    }
+    .like, .dislike {
+        width: 50%;
+    }
+    /*#greeting {
+        visibility: hidden;
+    }*/
+    /*#slogan, #create {
+        bottom: 300px
+    }*/
+}
+@media screen and (max-width: 620px) {
+    #greeting {
+        position: relative;
+        bottom: 450px;
+    }
+    #slogan {
+        font-size: 40px;
+    }
+    #logo {
+        width: 80px;
+        height: 80px;
+    }
+    #pollers, #logo {
+        margin: 0px auto;
+    }
+    canvas {
+        display: block;
+    }
+}
+@media screen and (max-width: 400px) {
+    #greeting {
+        bottom: 500px;
+    }
+}
