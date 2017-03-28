@@ -24,7 +24,6 @@ export default class ManageVotes extends React.Component {
         }).then((res) => {
         return res.json()
         }).then((json) => {
-            console.log(json)
             this.setState({
                 polls: json.data
             });

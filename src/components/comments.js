@@ -49,7 +49,6 @@ export default class Comments extends React.Component {
         }
         let currentComment = e.target.previousSibling;
         currentComment = e.target.previousSibling.getAttribute("class") === "comment" ? currentComment : currentComment.previousSibling;
-        console.log(currentComment);
         fetch("/update", {
             method: "post",
             body: JSON.stringify({question: this.props.question, id: e.target.getAttribute("class"), username: this.context.user.givenName, comment: currentComment.getAttribute("id")}),

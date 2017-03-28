@@ -20,7 +20,6 @@ export default class VotesList extends React.Component {
         }).then((res) => {
         return res.json()
         }).then((json) => {
-            console.log(json.data)
             if (json.data.length === 0) {
                 this.setState({
                     polls: "Looks like there aren't any polls open yet. Sign in, or register to start your own poll."

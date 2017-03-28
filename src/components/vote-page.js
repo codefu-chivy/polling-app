@@ -20,17 +20,6 @@ export default class VotePage extends React.Component {
     static contextTypes = {
         user: React.PropTypes.object
     };
-    /*componentDidMount = () => {
-        fetch("/poll", {
-            method: "get"
-        }).then((res) => {
-        return res.json()
-        }).then((json) => {
-            this.setState({
-                poll: json.data
-            });
-        });
-    };*/
     handleClick = () => {
         if (!this.state.canVote) {
             document.getElementById("no-vote").textContent = "You have voted already!"
