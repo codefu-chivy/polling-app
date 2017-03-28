@@ -62504,7 +62504,6 @@
 	            }).then(function (res) {
 	                return res.json();
 	            }).then(function (json) {
-	                console.log(json);
 	                _this.setState({
 	                    polls: json.data
 	                });
@@ -63275,7 +63274,6 @@
 	            }).then(function (res) {
 	                return res.json();
 	            }).then(function (json) {
-	                console.log(json.data);
 	                if (json.data.length === 0) {
 	                    _this.setState({
 	                        polls: "Looks like there aren't any polls open yet. Sign in, or register to start your own poll."
@@ -63454,18 +63452,6 @@
 	        };
 	        return _this;
 	    }
-	    /*componentDidMount = () => {
-	        fetch("/poll", {
-	            method: "get"
-	        }).then((res) => {
-	        return res.json()
-	        }).then((json) => {
-	            this.setState({
-	                poll: json.data
-	            });
-	        });
-	    };*/
-
 
 	    _createClass(VotePage, [{
 	        key: "render",
@@ -90295,6 +90281,10 @@
 	        };
 
 	        _this.handleComments = function () {
+	            if (!document.getElementById("comment-create").value) {
+	                alert("You haven't written anything");
+	                return;
+	            }
 	            var comment = document.getElementById("comment-create").value;
 	            fetch("/create-comment", {
 	                method: "post",
@@ -90317,7 +90307,6 @@
 	            }
 	            var currentComment = e.target.previousSibling;
 	            currentComment = e.target.previousSibling.getAttribute("class") === "comment" ? currentComment : currentComment.previousSibling;
-	            console.log(currentComment);
 	            fetch("/update", {
 	                method: "post",
 	                body: JSON.stringify({ question: _this.props.question, id: e.target.getAttribute("class"), username: _this.context.user.givenName, comment: currentComment.getAttribute("id") }),
