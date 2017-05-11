@@ -111,7 +111,7 @@ app.post("/comments", jsonParser, (req, res) => {
 app.post("/create-comment", jsonParser, (req, res) => {
     let date = new Date().toLocaleString();
     Poll.findOne({"user.question": req.body.data[1]}, (err, userPoll) => {
-        userPoll.comments.unshift({comment: req.body.data[0], likes: 0, dislikes: 0, date: date});
+        userPoll.comments.unshift({comment: req.body.data[0], date: date});
         userPoll.save((err) => {
             if (err) {
                 throw err;
@@ -120,58 +120,6 @@ app.post("/create-comment", jsonParser, (req, res) => {
         });
     });
 });
-
-app.post("/update", jsonParser, (req, res) => {
-    Poll.findOne({"user.question": req.body.question}, (err, userPoll) => {
-        if (userPoll.userFeedback.length > 0) {
-            for (let i = 0;  i < userPoll.userFeedback.length; i++) {
-                if (userPoll.userFeedback[i].username === req.body.username) {
-                    if (userPoll.userFeedback[i].index === req.body.comment) {
-                        if (userPoll.userFeedback[i].type === req.body.id) {
-                            console.log("hello")
-                            return;
-                        }
-                        else if (userPoll.userFeedback[i].type !== req.body.id) {
-                            if (req.body.id === "like") {
-                                userPoll.comments[req.body.comment].likes++;
-                                userPoll.comments[req.body.comment].dislikes--;
-                            }
-                            else if (req.body.id === "dislike") {
-                                userPoll.comments[req.body.comment].likes--;
-                                userPoll.comments[req.body.comment].dislikes++;
-                            }
-                            userPoll.userFeedback.splice(i, 1);
-                            userPoll.userFeedback.push({username: req.body.username, type: req.body.id, index: req.body.comment});
-                            userPoll.markModified("comments");
-                            userPoll.save((err) => {
-                                if (err) {
-                                    throw err;
-                                }
-                            });
-                            res.json({data: userPoll.comments})
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-            userPoll.userFeedback.push({username: req.body.username, type: req.body.id, index: req.body.comment});
-            if (req.body.id === "like") {
-                userPoll.comments[req.body.comment].likes++;
-            }
-            else {
-                userPoll.comments[req.body.comment].dislikes++;
-            }
-            userPoll.markModified("comments");
-            userPoll.markModified("userFeedback");
-            userPoll.save((err) => {
-                if (err) {
-                    throw err;
-                }
-            });
-            res.json({data: userPoll.comments})
-    })
-})
 
 app.post("/tallies", jsonParser, (req, res) => {
     Poll.findOne({"user.question": req.body.data[0]}, (err, userPoll) => {
