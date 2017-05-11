@@ -90281,6 +90281,10 @@
 	        };
 
 	        _this.handleComments = function () {
+	            if (!_this.context.user) {
+	                alert("You are not logged in!");
+	                return;
+	            }
 	            if (!document.getElementById("comment-create").value) {
 	                alert("You haven't written anything");
 	                return;
@@ -90298,27 +90302,7 @@
 	                _this.setState({
 	                    comments: json.newComments
 	                });
-	            });
-	        };
-
-	        _this.handleLikeDislike = function (e) {
-	            if (!_this.context.user) {
-	                return;
-	            }
-	            var currentComment = e.target.previousSibling;
-	            currentComment = e.target.previousSibling.getAttribute("class") === "comment" ? currentComment : currentComment.previousSibling;
-	            fetch("/update", {
-	                method: "post",
-	                body: JSON.stringify({ question: _this.props.question, id: e.target.getAttribute("class"), username: _this.context.user.givenName, comment: currentComment.getAttribute("id") }),
-	                headers: {
-	                    "Content-Type": "application/json"
-	                }
-	            }).then(function (res) {
-	                return res.json();
-	            }).then(function (json) {
-	                _this.setState({
-	                    comments: json.data
-	                });
+	                document.getElementById("comment-create").value = "";
 	            });
 	        };
 
@@ -90331,9 +90315,7 @@
 	    _createClass(Comments, [{
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
-
-	            var message = this.context.user ? null : "You must login before you can like or dislike comments";
+	            var message = this.context.user ? null : "You must login before you can comment";
 	            var comments = this.state.comments ? _react2.default.createElement(
 	                "div",
 	                { id: "comment-box" },
@@ -90350,20 +90332,6 @@
 	                            "p",
 	                            { className: "comment", id: index },
 	                            ele.comment
-	                        ),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "like", onClick: _this2.handleLikeDislike },
-	                            "Like (",
-	                            ele.likes,
-	                            ")"
-	                        ),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "dislike", onClick: _this2.handleLikeDislike },
-	                            "Dislike (",
-	                            ele.dislikes,
-	                            ")"
 	                        )
 	                    );
 	                })
