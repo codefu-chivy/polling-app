@@ -28,6 +28,10 @@ export default class Comments extends React.Component {
         });
     };
     handleComments = () => {
+        if (!this.context.user) {
+            alert("You are not logged in!");
+            return;
+        }
         if (!document.getElementById("comment-create").value) {
             alert("You haven't written anything");
             return;
@@ -45,30 +49,11 @@ export default class Comments extends React.Component {
             this.setState({
                 comments: json.newComments
             });
+            document.getElementById("comment-create").value = "";
         });
     };
-    handleLikeDislike = (e) => {
-        if (!this.context.user) {
-            return;
-        }
-        let currentComment = e.target.previousSibling;
-        currentComment = e.target.previousSibling.getAttribute("class") === "comment" ? currentComment : currentComment.previousSibling;
-        fetch("/update", {
-            method: "post",
-            body: JSON.stringify({question: this.props.question, id: e.target.getAttribute("class"), username: this.context.user.givenName, comment: currentComment.getAttribute("id")}),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((res) => {
-        return res.json()
-        }).then((json) => {
-             this.setState({
-                comments: json.data
-            });
-        });
-    }
     render() {
-        let message = this.context.user ? null : "You must login before you can like or dislike comments"
+        let message = this.context.user ? null : "You must login before you can comment"
         let comments = this.state.comments ? (
             <div id="comment-box">
               {this.state.comments.map((ele, index) => {
@@ -76,8 +61,6 @@ export default class Comments extends React.Component {
                       <div key={index} className="current-comment-box">
                         <h5>{ele.date}</h5>
                         <p className="comment" id={index}>{ele.comment}</p>
-                        <button className="like" onClick={this.handleLikeDislike}>Like ({ele.likes})</button>
-                        <button className="dislike" onClick={this.handleLikeDislike}>Dislike ({ele.dislikes})</button>
                       </div>
                   )
               })}
