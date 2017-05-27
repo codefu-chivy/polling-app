@@ -180,6 +180,7 @@ input:not([type=radio]) {
 #comment-button {
     display: block;
     margin: 0px auto;
+    margin-bottom: 20px;
 }
 .current-comment-box {
     margin: 25px;
