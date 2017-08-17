@@ -1,6 +1,5 @@
 import React from "react";
 import {Button} from "react-bootstrap";
-import {Authenticated, NotAuthenticated} from "react-stormpath";
 import {Link} from "react-router";
 import jwt_decode from "jwt-decode";
 
