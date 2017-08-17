@@ -18,14 +18,13 @@ export default class Default extends React.Component {
         }).then((res) => {
             return res.json();
         }).then((json) => {
-            console.log(json);
             window.location = json.redirect;
         });
     };
     render() {
         return (
             <div>
-              <button onClick={this.handleDelete}>Delete</button>
+              <button className={this.props.votePage ? "vote-options" : "delete-poll"} onClick={this.handleDelete}>Delete</button>
             </div>
         )
     }

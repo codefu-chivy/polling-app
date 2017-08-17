@@ -1,5 +1,4 @@
 const express = require("express");
-const stormpath = require("express-stormpath");
 const bodyParser = require("body-parser");
 const webpack = require("webpack");
 const config = require("../webpack.config");
@@ -8,35 +7,19 @@ const urlencodedParser = bodyParser.urlencoded({extended: false});
 const jsonParser = bodyParser.json();
 const dbconnection = require("./database/dbconnection");
 const Poll = require("./database/poll-model");
-const Index = require("./database/number-model");
-const port = process.env.PORT || 8080
+const User = require("./database/user-model");
+const port = process.env.PORT || 3000;
+const Isemail = require("isemail");
+const passwordHash = require("password-hash");
+const jwt = require("jsonwebtoken");
 let username;
 let pollNumber;
 require("dotenv").config({path: "codes.env"})
 
 dbconnection();
+console.log("here")
 const app = express();
 const compiler = webpack(config);
-
-app.use(require("webpack-dev-middleware")(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-}));
-
-app.use(stormpath.init(app, {
-    client: {
-        apiKey: {
-            id: process.env.API_ID,
-            secret: process.env.API_SECRET
-        }
-    },
-    application: {
-        href: process.env.APP_HREF
-    },
-    web: {
-        produces: ["application/json"]
-    }
-}));
 
 app.use("/static", express.static(path.join(__dirname, 'static')));
 
@@ -44,16 +27,7 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/static/index.html");
 })
 
-app.on("stormpath.ready", () => {
-    app.listen(port, (err) => {
-        if (err) {
-            throw err;
-        }
-        console.log("Listening on port 3000");
-    });
-});
-
-app.post("/poll-create", urlencodedParser, (req, res) => {
+app.post("/poll-create", jsonParser, (req, res) => {
     let votesArray = [];
     let question = req.body.question;
     let choices = req.body.choices.split(",");
@@ -62,10 +36,10 @@ app.post("/poll-create", urlencodedParser, (req, res) => {
     }
     let date = new Date();
     let dateString = date.toLocaleString();
-    console.log(dateString);
+    dateString = dateString.slice(0, dateString.indexOf(","));
     let userPoll = new Poll({
         user: {
-            name: username,
+            name: req.body.username,
             question: question,
             choices: choices,
         },
@@ -78,14 +52,9 @@ app.post("/poll-create", urlencodedParser, (req, res) => {
         if (err) {
             throw err;
         }
-        console.log("Successful save");
-        res.redirect("/");
+    }).then(() => {
+        res.json({success: true});
     });
-});
-
-app.post("/user", jsonParser, (req, res) => {
-    username = req.body.user;
-    res.sendStatus(200);
 });
 
 app.get("/votes-list", (req, res) => {
@@ -155,4 +124,75 @@ app.post("/manage-votes", jsonParser, (req, res) => {
         }
         res.json({data: polls})
     })
+});
+
+app.post("/valid-email", jsonParser, (req, res) => {
+    let isValid = Isemail.validate(req.body.email);
+    if (!isValid) {
+        res.json({valid: isValid});
+    }
+    else {
+        User.findOne({email: req.body.email}, (err, email) => {
+            if (!email) {
+                res.json({valid: isValid});
+            }
+            else {
+                res.json({message: "Email already exists"});
+            }
+        });
+    }  
+});
+
+app.post("/handle-register", jsonParser, (req, res) => {
+    User.findOne({username: req.body.username}, (err, username) => {
+        if (username) {
+            res.json({message: "This username already exists. Choose another"});
+        }
+        else {
+            console.log("here")
+            let hashedPassword = passwordHash.generate(req.body.password);
+            let username = req.body.username;
+            let email = req.body.email;
+            let users = new User({
+                username: username,
+                password: hashedPassword,
+                email: email
+            });
+            users.save((err) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    res.json({success: true});
+                }
+            });
+        }
+    });
+});
+
+app.post("/handle-login", jsonParser, (req, res) => {
+    User.findOne({username: req.body.username}, (err, userObj) => {
+        if (err) {
+            throw err;
+        }
+        if (userObj) {
+            if (passwordHash.verify(req.body.password, userObj.password)) {
+                let token = jwt.sign(userObj, process.env.SECRET, {expiresIn: 1440});
+                res.json({token: token});
+            }
+            else {
+                res.json({incorrect: true});
+            }
+        }
+        else {
+            res.json({incorrect: true});
+        }
+    });
 })
+
+app.listen(port, (err) => {
+    if (err) {
+        throw err;
+    }
+    console.log("Listening on port 3000");
+});

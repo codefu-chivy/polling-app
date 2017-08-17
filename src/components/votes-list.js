@@ -42,20 +42,30 @@ export default class VotesList extends React.Component {
         this.setState({
             showVote: false
         });
-    }
+    };
+    handleHover = (e) => {
+        e.target.nextSibling.classList.add("vote-param-hover");
+    };
+    handleLeave = (e) => {
+        e.target.nextSibling.classList.remove("vote-param-hover");
+    };
     render() {
         let pollData = Array.isArray(this.state.polls) ? this.state.polls.map((ele, index) => {
             return (
-            <div key={index + 1} onClick={() => this.handleClick(index)} className="pollbox">
-              <h3 className="poll-title" id={index}>{ele.user.question}</h3>
-              <h4>By {ele.user.name}</h4>
-              <h5>{ele.date}</h5>
-              <h6>{ele.votes.reduce(addChoices)} Vote(s)</h6>
+            <div id={index} key={index + 1} onClick={() => this.handleClick(index)} className="pollbox">
+              <h3 className="poll-title">{ele.user.question}</h3>
+              <div className="vote-param expand">
+                <div className="expand-inner">  
+                  <h4 className="user-name">By {ele.user.name}</h4>
+                  <h5 className="vote-date">{ele.date}</h5>
+                  <h6 className="vote-num">{ele.votes.reduce(addChoices)} Vote(s)</h6>
+                </div>  
+              </div>
             </div>
             )
         }) : this.state.polls;
         return (
-            <div>
+            <div id="votelist-cont">
               {this.state.showVote ? <VotePage changeShowVote={this.changeShowVote} pollProp={this.state.pollProp}/> : null}
               {this.state.showVote ? null : pollData}
             </div>

@@ -2,34 +2,42 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {Authenticated, NotAuthenticated} from "react-stormpath";
 import {Link} from "react-router";
+import jwt_decode from "jwt-decode";
 
 export default class CreatePoll extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            token: localStorage.getItem("token")
+        }
     }
-    static contextTypes = {
-        authenticated: React.PropTypes.bool,
-        user: React.PropTypes.object
-    };
-    componentDidMount = () => {
-        fetch("/user", {
+    handleCreatePoll = () => {
+        let question = document.getElementById("question").value;
+        let choices = document.getElementById("choices").value;
+        let username = jwt_decode(JSON.stringify(this.state.token))._doc.username;
+        let data = {
+            question: question,
+            choices: choices,
+            username: username
+        }
+        fetch("poll-create", {
             method: "post",
-            body: JSON.stringify({
-                user: this.context.user.givenName
-            }),
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(data)
         }).then((res) => {
-            console.log(res)
+            return res.json();
+        }).then((json) => {
+            if (json.success) {
+                window.location = "/";
+            }
         });
-    };
-    
+    }
     render() {
         return (
             <div id="create-page">
               <h3>Use the input boxes below to create a poll</h3>
-              <form action="/poll-create" method="POST">
                <div id="question-box">
                 <label htmlFor="question">Question: </label>
                 <input onChange={this.handleInputs} type="text" id="question" name="question" placeholder="Enter question here" required/>
@@ -38,8 +46,7 @@ export default class CreatePoll extends React.Component {
                 <label htmlFor="choices">Choices: </label>
                 <input name="choices" id="choices" placeholder="Seperate by commas" required></input>
                </div> 
-                <button onClick={this.handleSubmit} type="submit">Create Poll</button>
-              </form>  
+                <button id="create-poll-button" onClick={this.handleCreatePoll}>Create Poll</button>
             </div>
         )
     }

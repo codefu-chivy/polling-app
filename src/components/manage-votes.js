@@ -1,22 +1,21 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 import Delete from "./delete";
+import jwt_decode from "jwt-decode";
 
 export default class ManageVotes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            polls: null
+            polls: null,
+            isAuthenticated: localStorage.getItem("token")
         }
     }
-    static contextTypes = {
-        user: React.PropTypes.object
-    };
     componentDidMount = () => {
         fetch("/manage-votes", {
             method: "post",
             body: JSON.stringify({
-                user: this.context.user.givenName
+                user: jwt_decode(JSON.stringify(this.state.isAuthenticated))._doc.username
             }),
             headers: {
                 "Content-Type": "application/json"

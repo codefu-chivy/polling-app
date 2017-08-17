@@ -5,6 +5,7 @@ import ChartVisual from "./chart";
 import Delete from "./delete";
 import Comments from "./comments"
 import {Link} from "react-router";
+import jwt_decode from "jwt-decode";
 
 export default class VotePage extends React.Component {
     constructor(props) {
@@ -14,12 +15,10 @@ export default class VotePage extends React.Component {
             chartData: null,
             showChart: false,
             showUserSpecific: false,
-            canVote: true
+            canVote: true,
+            isAuthenticated: localStorage.getItem("token")
         }
     }
-    static contextTypes = {
-        user: React.PropTypes.object
-    };
     handleClick = () => {
         if (!this.state.canVote) {
             document.getElementById("no-vote").textContent = "You have voted already!"
@@ -58,27 +57,27 @@ export default class VotePage extends React.Component {
         let userElements;
         if (this.state.poll) {
             pollChoices = (<div>
-              <p className="question">{this.state.poll.user.question}</p>
               {this.state.poll.user.choices.map((ele, index) => {
                   return (
-                      <div key={index}><input className="poll" id={index} type="radio" name="choice" value={[ele, this.state.poll.user.question, index]}/><span>{ele}</span></div>
+                      <div className="poll-container" key={index}><input className="poll" id={index} type="radio" name="choice" value={[ele, this.state.poll.user.question, index]}/><span className="poll-option">{ele}</span></div>
                   )
               })}
               <button className="vote-options" type="submit" onClick={this.handleClick}>Vote</button>
             </div>);
             this.state.showChart ? chart = <ChartVisual chartData={this.state.chartData} choices={this.state.poll.user.choices}/> : chart = null;
-            if (this.context.user) {
-                this.context.user.givenName === this.state.poll.user.name ? userElements = <div><Delete className="vote-options" question={this.state.poll.user.question}/></div> : userElements = null;
+            if (this.state.isAuthenticated) {
+                jwt_decode(JSON.stringify(this.state.isAuthenticated))._doc.username === this.state.poll.user.name ? userElements = <div><Delete votePage={true} className="vote-options" question={this.state.poll.user.question}/></div> : userElements = null;
             }
         }
         return(
             <div>
               <div id="vote-page">
+                <h2 className="question">{this.state.poll.user.question}</h2>  
                 <h4 id="no-vote"></h4>
                 {chart}
-                {pollChoices}
-                {userElements}
-                <button onClick={this.backToHome} className="vote-options">Back to Polls</button>
+                {this.state.showChart ? null : pollChoices}
+                {this.state.showChart ? null : userElements}
+                <a href="/"><button className="vote-options">Back to Polls</button></a>
               </div>
               <div>
                 <Comments question={this.state.poll.user.question}/>

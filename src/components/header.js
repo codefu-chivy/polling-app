@@ -1,50 +1,48 @@
 import React from "react";
-import {Link} from "react-router";
+import {Link, Router} from "react-router";
 import Logo from "./logo";
-import {LoginLink, LogoutLink, Authenticated, NotAuthenticated} from "react-stormpath";
 import {Button} from "react-bootstrap";
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAuthenticated: false
+            isAuthenticated: localStorage.getItem("token")
         }
     }
-    static contextTypes = {
-        authenticated: React.PropTypes.bool,
-        user: React.PropTypes.object
+    static get contextTypes() {
+        return {
+            router: React.PropTypes.object.isRequired,
+        };
     };
+    handleLogout = () => {
+        localStorage.removeItem("token");
+        this.setState({
+            isAuthenticated: false
+        });
+        window.location = "/";
+    }
+    createPoll = () => {
+        let auth = "/create";
+        let notAuth = "/login";
+        this.state.isAuthenticated ? this.context.router.push(auth) : this.context.router.push(notAuth);
+    }
     render() {
-        let user;
-        if (this.context.authenticated) {
-            user = <div id="greeting"><h3>Hello, {this.context.user.givenName}</h3></div>
-        }
-        else {
-            user = null;
-        }
+        let user;        
         return (
             <div className="head">
               <nav className="first-block">
                 <Logo/>
                 <ul>
-                  <Authenticated>
-                    <li id="manage"><Link to="/manage">Manage Votes</Link></li>
-                  </Authenticated>
-                  <NotAuthenticated>
-                    <li><LoginLink/></li>
-                  </NotAuthenticated>
-                  <NotAuthenticated>
-                    <li><Link to="/register">Sign Up</Link></li>
-                  </NotAuthenticated>
-                  <Authenticated>
-                    <li id="logout-link"><LogoutLink/></li>
-                  </Authenticated>
+                  {this.state.isAuthenticated ? <li><Link to="/manage"><button id="manage" className="userButtons">Manage Votes</button></Link></li> : null}
+                  {this.state.isAuthenticated ? null : <li><Link to="/login"><button id="login-link" className="userButtons">Login</button></Link></li>}
+                  {this.state.isAuthenticated ? null : <li><Link to="/register"><button id="register-link" className="userButtons">Sign Up</button></Link></li>}
+                  {this.state.isAuthenticated ? <li><button id="logout-link" onClick={this.handleLogout} className="userButtons">Logout</button></li> : null}
                 </ul>  
               </nav>
               <img id="main" src="/static/main-image.jpg" alt="main image" title="main image"/>
               <h1 id="slogan">Put It To A Vote</h1>
-              <Link to="/create"><Button id="create" bsSize="large">Create New Poll</Button></Link>
+              <button onClick={this.createPoll} id="create">Create New Poll</button>
               {user}
             </div>
         );
