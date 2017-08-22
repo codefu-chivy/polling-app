@@ -28,8 +28,11 @@ export default class CreatePoll extends React.Component {
         }).then((res) => {
             return res.json();
         }).then((json) => {
-            if (json.success) {
+            if (json.success === true) {
                 window.location = "/";
+            }
+            else {
+                alert("Not enough choices!");
             }
         });
     }

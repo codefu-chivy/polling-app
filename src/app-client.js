@@ -8,7 +8,6 @@ import ManageVotes from "./components/manage-votes";
 import CreatePoll from "./components/createpoll";
 import VotesList from "./components/votes-list";
 import VotePage from "./components/vote-page";
-import Change from "./components/change";
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -16,7 +15,6 @@ ReactDOM.render(
         <IndexRoute component={VotesList}/>
         <Route path="/vote-page/:id" component={VotePage}/>
         <Route path="/manage" component={ManageVotes}/>
-        <Route path="/forgot" component={Change}/>
         <Route path="/create" component={CreatePoll}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/> 

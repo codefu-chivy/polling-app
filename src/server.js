@@ -17,7 +17,6 @@ let pollNumber;
 require("dotenv").config({path: "codes.env"})
 
 dbconnection();
-console.log("here")
 const app = express();
 const compiler = webpack(config);
 
@@ -31,6 +30,10 @@ app.post("/poll-create", jsonParser, (req, res) => {
     let votesArray = [];
     let question = req.body.question;
     let choices = req.body.choices.split(",");
+    if (choices.length <= 1 || !question) {
+        res.json({success: false});
+        return;
+    }
     for (let i = 0; i < choices.length; i++) {
         votesArray[i] = 0;
     }

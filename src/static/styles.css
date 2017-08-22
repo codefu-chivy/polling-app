@@ -244,6 +244,12 @@ input:not([type=radio]) {
 }
 
 /*media queries for mobile*/
+@media screen and (max-width: 920px) {
+    li {
+        right: 0px;
+        margin-top: 10px;
+    }
+}
 @media screen and (max-width: 800px) {
     #login, #register {
         width: 90% !important;
@@ -265,9 +271,10 @@ input:not([type=radio]) {
     button {
         width: 95%
     }
-    li {
+    /*li {
         right: 0px;
-    }
+        margin-top: 10px;
+    }*/
     #inner-register {
         right: 130px;
     }
@@ -284,6 +291,16 @@ input:not([type=radio]) {
 @media screen and (max-width: 620px) {
     #slogan {
         font-size: 40px;
+    }
+    #create-page {
+        width: 100%;
+        bottom: 170px;
+    }
+    #question, #choices {
+        width: 50% !important;
+    }
+    #question-box, #choices-box {
+        width: 95%;
     }
     #logo {
         width: 80px;
