@@ -39,7 +39,7 @@ export default class Login extends React.Component {
                 });
             }
             else {
-                localStorage.setItem("token", JSON.stringify({token: json.token}));
+                sessionStorage.setItem("token", JSON.stringify({token: json.token}));
                 window.location = "/";
             }
         });

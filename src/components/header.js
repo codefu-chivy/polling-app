@@ -7,7 +7,7 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAuthenticated: localStorage.getItem("token")
+            isAuthenticated: sessionStorage.getItem("token")
         }
     }
     static get contextTypes() {
@@ -16,11 +16,13 @@ export default class Header extends React.Component {
         };
     };
     handleLogout = () => {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         this.setState({
-            isAuthenticated: false
+            isAuthenticated: null
+        }, () => {
+            window.location = "/";
         });
-        window.location = "/";
+        
     }
     createPoll = () => {
         let auth = "/create";
@@ -28,7 +30,7 @@ export default class Header extends React.Component {
         this.state.isAuthenticated ? this.context.router.push(auth) : this.context.router.push(notAuth);
     }
     render() {
-        let user;        
+        let user;   
         return (
             <div className="head">
               <nav className="first-block">
