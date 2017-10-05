@@ -1,345 +1,73 @@
-body {
-    text-align: center;
-    margin: 0px;
+body{text-align:center;margin:0px;}
+#logo{width:150px;height:150px;}
+#logo, #pollers{float:left;}
+#pollers{font-size:65px;letter-spacing:1px;margin-left:20px;font-family:"racing sans one" !important;}
+#main{width:100%;height:300px;background-color:steelblue;}
+li{float:right;margin:20px;list-style-type:none;font-size:20px;margin-top:85px;position:relative;right:150px;}
+#greeting{font-family:"racing sans one" !important;font-size:30px;margin:0px auto;width:100%;position:absolute;bottom:730px;}
+.poll{text-align:center;margin:20px auto;}
+.poll-option{margin-left:15px;font-size:25px;}
+.poll-container{margin-left:150px !important;}
+.vote-options{margin-left:200px !important;margin-bottom:10px !important;margin:0px auto;}
+#vote-page{font-size:25px;width:550px;min-height:450px;max-height:1000px;margin:0px auto;padding:35px;text-align:left;position:relative;top:-220px;background-color:honeydew;box-shadow:0 0 10px #666666;}
+.question, span, #no-vote{font-family:"Roboto";}
+.question{font-family:50px !important;text-align:center;}
+#no-vote{margin:0px auto;}
+#slogan{position:relative;bottom:250px;font-size:60px;letter-spacing:5px;word-spacing:5px;font-family:"racing sans one" !important;color:white;}
+#create{position:relative;bottom:250px;}
+#login, #register{font-size:18px;font-family:"Roboto";width:500px !important;height:300px;padding-top:80px;box-shadow:0 0 10px #666666;background-color:honeydew;position:relative;bottom:150px;}
+#register{text-align:right;}
+#inner-register{position:relative;right:50px;}
+#login input, #register input, #create-page input{width:270px;border-radius:0px;height:30px;border:none;padding:5px;}
+#incorrect{color:red;}
+.pollbox, .list-link{font-size:20px;cursor:pointer;font-family:"Roboto";position:relative;bottom:200px;margin-bottom:30px;width:500px;margin:0 auto;}
+.poll-title{margin:0px auto;padding:5px;background-color:#5D6A77;color:#DDDEDE;transition:background-color .5s;}
+.poll-title:hover{background-color:#7FABD7;color:white;}
+canvas{width:300px;height:300px;margin:0 auto;margin-bottom:15px;}
+#create{height:50px;width:300px;border:1px solid darkgreen;font-size:20px;border-radius:3px;background-color:forestgreen;color:white;}
+#create:hover{cursor:pointer;background-color:darkgreen;}
+.vote-options, #comment-button, #create-poll-button, .delete-poll{border:none;width:150px;height:50px;background-color:#397DC1 !important;font-size:20px;color:white;transition:all .5s;}
+.vote-options:hover, #comment-button:hover, #create-poll-button:hover, .delete-poll:hover{cursor:pointer;background-color:#78AFE5 !important;}
+#login-button, #register-button, .userButtons{height:35px;width:150px;border:none;font-size:20px;background-color:#397DC1 !important;color:white;transition:all .5s;}
+#login-button:hover, #register-button:hover, .userButtons:hover{cursor:pointer;background-color:#78AFE5 !important;}
+#votelist-cont{margin-top:30px;width:100%;max-height:1000px;}
+.user-name, .vote-date{margin-bottom:0px !important;}
+label{font-size:20px;}
+#create-page{font-family:"roboto";position:relative;bottom:210px;margin:0 auto;width:500px;}
+#question-box, #choices-box{width:85%;text-align:right;margin:0px auto;}
+input:not([type=radio]){border-radius:5px;border:1px solid silver;box-shadow:inset 0px 0px 2px;;margin:10px;font-size:20px;width:70%;height:35px;}
+#register, #login{width:60%;margin:0px auto;}
+#comment-container{margin-top:-190px;font-family:Arial, Helvetica, sans-serif;font-size:20px;}
+#comment-create{resize:none;width:400px;height:100px;border-radius:5px;}
+#comment-button{display:block;margin:0px auto;margin-bottom:50px;width:250px !important;}
+.current-comment-box{margin:25px;}
+.like, .dislike{width:15%;}
+@media screen and (max-width:920px){li{right:0px;margin-top:10px;}
 }
-#logo {
-    width: 150px;
-    height: 150px;
+@media screen and (max-width:800px){#login, #register{width:90% !important;bottom:160px;}
+.pollbox{width:100%;}
+p > label{width:100%;}
+.pollbox{bottom:160px;}
+#vote-page{width:80%;margin-top:50px;}
+button{width:95%}
+#inner-register{right:130px;}
+.poll-container{margin-left:-70px;}
+#vote-page{top:-190px;}
 }
-#logo, #pollers {
-    float: left;
+@media screen and (max-width:620px){#slogan{font-size:40px;}
+#create-page{width:100%;bottom:170px;}
+#question, #choices{width:50% !important;}
+#question-box, #choices-box{width:95%;}
+#logo{width:80px;height:80px;}
+#pollers, #logo{margin:0px auto;}
+canvas{display:block;}
+#login, #register{bottom:100px;}
+#inner-register{text-align:center;width:90%;position:initial;}
+#register{height:440px;}
+.poll-container{margin-left:-20px !important;}
+.vote-options{margin-left:0px !important;margin:0px auto !important;}
+#comment-create{width:65%;}
 }
-#pollers {
-    font-size: 65px;
-    letter-spacing: 1px;
-    margin-left: 20px;
-    font-family: "racing sans one" !important;
-}
-#main {
-    width: 100%;
-    height: 300px;
-    background-color: steelblue;
-}
-li {
-    float: right;
-    margin: 20px;
-    list-style-type: none;
-    font-size: 20px;
-    margin-top: 85px;
-    position: relative;
-    right: 150px;
-}
-#greeting {
-    font-family: "racing sans one" !important;
-    font-size: 30px;
-    margin: 0px auto;
-    width: 100%;
-    position: absolute;
-    bottom: 730px;
-}
-.poll {
-    text-align: center;
-    margin: 20px auto;
-}
-.poll-option {
-    margin-left: 15px;
-    font-size: 25px;
-}
-.poll-container {
-    margin-left: 150px !important;
-}
-.vote-options {
-    margin-left: 200px !important;
-    margin-bottom: 10px !important;
-    margin: 0px auto;
-}
-#vote-page {
-    font-size: 25px;
-    width: 550px;
-    min-height: 450px;
-    max-height: 1000px;
-    margin: 0px auto;
-    padding: 35px;
-    text-align: left;
-    position: relative;
-    top: -220px;
-    background-color: honeydew;
-    box-shadow: 0 0 10px #666666;
-}
-.question, span, #no-vote {
-    font-family: "Roboto";
-}
-.question {
-    font-family: 50px !important;
-    text-align: center;
-}
-#no-vote {
-    margin: 0px auto;
-}
-#slogan {
-    position: relative;
-    bottom: 250px;
-    font-size: 60px;
-    letter-spacing: 5px;
-    word-spacing: 5px;
-    font-family: "racing sans one" !important;
-    color: white;
-}
-#create {
-    position: relative;
-    bottom: 250px;
-}
-#login, #register {
-    font-size: 18px;
-    font-family: "Roboto";
-    width: 500px !important;
-    height: 300px;
-    padding-top: 80px;
-    box-shadow: 0 0 10px #666666;
-    background-color: honeydew;
-    position: relative;
-    bottom: 150px;
-}
-#register {
-    text-align: right;
-}
-#inner-register {
-    position: relative;
-    right: 50px;
-}
-#login input, #register input, #create-page input {
-    width: 270px;
-    border-radius: 0px;
-    height: 30px;
-    border: none;
-    padding: 5px;
-}
-#incorrect {
-    color: red;
-}
-.pollbox, .list-link {
-    font-size: 20px;
-    cursor: pointer;
-    font-family: "Roboto";
-    position: relative;
-    bottom: 200px;
-    margin-bottom: 30px;
-    width: 500px;
-    margin: 0 auto;
-}
-.poll-title {
-    margin: 0px auto;
-    padding: 5px;
-    background-color: #5D6A77;
-    color: #DDDEDE;
-    transition: background-color .5s;
-}
-.poll-title:hover {
-    background-color: #7FABD7;
-    color: white;
-}
-canvas {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-    margin-bottom: 15px;
-}
-#create {
-    height: 50px;
-    width: 300px;
-    border: 1px solid darkgreen;
-    font-size: 20px;
-    border-radius: 3px;
-    background-color: forestgreen;
-    color: white;
-}
-#create:hover {
-    cursor: pointer;
-    background-color: darkgreen;
-}
-.vote-options, #comment-button, #create-poll-button, .delete-poll {
-    border: none;
-    width: 150px;
-    height: 50px;
-    background-color: #397DC1 !important;
-    font-size: 20px;
-    color: white;
-    transition: all .5s;
-}
-.vote-options:hover, #comment-button:hover, #create-poll-button:hover, .delete-poll:hover {
-    cursor: pointer;
-    background-color: #78AFE5 !important;
-}
-#login-button, #register-button, .userButtons {
-    height: 35px;
-    width: 150px;
-    border: none;
-    font-size: 20px;
-    background-color: #397DC1 !important;
-    color: white;
-    transition: all .5s;
-}
-#login-button:hover, #register-button:hover, .userButtons:hover {
-    cursor: pointer;
-    background-color: #78AFE5 !important;
-}
-#votelist-cont {
-    margin-top: 30px;
-    width: 100%;
-    max-height: 1000px;
-}
-.user-name, .vote-date {
-    margin-bottom: 0px !important;
-}
-label {
-    font-size: 20px;
-}
-#create-page {
-    font-family: "roboto";
-    position: relative;
-    bottom: 210px;
-    margin: 0 auto;
-    width: 500px;
-}
-#question-box, #choices-box {
-    width: 85%;
-    text-align: right;
-    margin: 0px auto;
-}
-input:not([type=radio]) {
-    border-radius: 5px;
-    border: 1px solid silver;
-    box-shadow: inset 0px 0px 2px;;
-    margin: 10px;
-    font-size: 20px;
-    width: 70%;
-    height: 35px;
-}
-#register, #login {
-    width: 60%;
-    margin: 0px auto;
-}
-#comment-container {
-    margin-top: -190px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
-#comment-create {
-    resize: none;
-    width: 400px;
-    height: 100px;
-    border-radius: 5px;
-}
-#comment-button {
-    display: block;
-    margin: 0px auto;
-    margin-bottom: 50px;
-    width: 250px !important;
-}
-.current-comment-box {
-    margin: 25px;
-}
-.like, .dislike {
-    width: 15%;
-}
-
-/*media queries for mobile*/
-@media screen and (max-width: 920px) {
-    li {
-        right: 0px;
-        margin-top: 10px;
-    }
-}
-@media screen and (max-width: 800px) {
-    #login, #register {
-        width: 90% !important;
-        bottom: 160px;
-    }
-    .pollbox {
-        width: 100%;
-    }
-    p > label {
-        width: 100%;
-    }
-    .pollbox {
-        bottom: 160px;
-    }
-    #vote-page {
-        width: 80%;
-        margin-top: 50px;
-    }
-    button {
-        width: 95%
-    }
-    /*li {
-        right: 0px;
-        margin-top: 10px;
-    }*/
-    #inner-register {
-        right: 130px;
-    }
-    .poll-container {
-        margin-left: -70px;
-    }
-    #vote-page {
-        top: -190px;
-    }
-    /*#slogan, #create {
-        bottom: 300px
-    }*/
-}
-@media screen and (max-width: 620px) {
-    #slogan {
-        font-size: 40px;
-    }
-    #create-page {
-        width: 100%;
-        bottom: 170px;
-    }
-    #question, #choices {
-        width: 50% !important;
-    }
-    #question-box, #choices-box {
-        width: 95%;
-    }
-    #logo {
-        width: 80px;
-        height: 80px;
-    }
-    #pollers, #logo {
-        margin: 0px auto;
-    }
-    canvas {
-        display: block;
-    }
-    #login, #register {
-        bottom: 100px;
-    }
-    #inner-register {
-        text-align: center;
-        width: 90%;
-        position: initial;
-    }
-    #register {
-        height: 440px;
-    }
-    .poll-container {
-        margin-left: -20px !important;
-    }
-    .vote-options {
-        margin-left: 0px !important;
-        margin: 0px auto !important;
-    }
-    #comment-create {
-        width: 65%;
-    }
-}
-@media screen and (max-width: 400px) {
-    label {
-        text-align: left;
-    }
-    #login, #register {
-        bottom: 150px;
-        height: 420px;
-    }
+@media screen and (max-width:400px){label{text-align:left;}
+#login, #register{bottom:150px;height:420px;}
 }
