@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 const Isemail = require("isemail");
 const passwordHash = require("password-hash");
 const jwt = require("jsonwebtoken");
+const compression = require("compression");
 let username;
 let pollNumber;
 require("dotenv").config({path: "codes.env"})
@@ -21,6 +22,7 @@ const app = express();
 const compiler = webpack(config);
 
 app.use("/static", express.static(path.join(__dirname, 'static')));
+app.use(compression())
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/static/index.html");
