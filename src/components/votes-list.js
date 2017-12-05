@@ -50,6 +50,7 @@ export default class VotesList extends React.Component {
         e.target.nextSibling.classList.remove("vote-param-hover");
     };
     render() {
+        console.log(localStorage.getItem("token"))
         let pollData = Array.isArray(this.state.polls) ? this.state.polls.map((ele, index) => {
             return (
             <div id={index} key={index + 1} onClick={() => this.handleClick(index)} className="pollbox">

@@ -8,7 +8,7 @@ export default class ManageVotes extends React.Component {
         super(props);
         this.state = {
             polls: null,
-            isAuthenticated: localStorage.getItem("token")
+            isAuthenticated: sessionStorage.getItem("token")
         }
     }
     componentDidMount = () => {

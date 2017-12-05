@@ -7,7 +7,7 @@ export default class CreatePoll extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: localStorage.getItem("token")
+            token: sessionStorage.getItem("token")
         }
     }
     handleCreatePoll = () => {
