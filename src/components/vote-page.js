@@ -52,7 +52,6 @@ export default class VotePage extends React.Component {
         this.props.changeShowVote();
     }
     render() {
-        console.log(this.state.isAuthenticated)
         let pollChoices = null;
         let chart;
         let userElements;
@@ -67,7 +66,6 @@ export default class VotePage extends React.Component {
             </div>);
             this.state.showChart ? chart = <ChartVisual chartData={this.state.chartData} choices={this.state.poll.user.choices}/> : chart = null;
             if (this.state.isAuthenticated) {
-                console.log(this.state.isAuthenticated)
                 jwt_decode(JSON.stringify(this.state.isAuthenticated))._doc.username === this.state.poll.user.name ? userElements = <div><Delete votePage={true} className="vote-options" question={this.state.poll.user.question}/></div> : userElements = null;
             }
         }

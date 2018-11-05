@@ -154,7 +154,6 @@ app.post("/handle-register", jsonParser, (req, res) => {
             res.json({message: "This username already exists. Choose another"});
         }
         else {
-            console.log("here")
             let hashedPassword = passwordHash.generate(req.body.password);
             let username = req.body.username;
             let email = req.body.email;

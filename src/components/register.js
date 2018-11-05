@@ -58,7 +58,7 @@ export default class Register extends React.Component {
         });
     }
     handleUserPass = (e) => {
-        if (!this.state.exists) {
+        if (this.state.exists) {
             return;
         }
         let username = document.getElementById("username").value;
